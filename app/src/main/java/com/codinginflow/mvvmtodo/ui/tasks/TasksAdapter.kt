@@ -1,11 +1,11 @@
-package com.shubhaminflow.mvvmtodo.ui.tasks
+package com.codinginflow.mvvmtodo.ui.tasks
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.shubhaminflow.mvvmtodo.data.Task
+import com.codinginflow.mvvmtodo.data.Task
 import com.codinginflow.mvvmtodo.databinding.ItemTaskBinding
 
 class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(DiffCallback()) {

@@ -1,4 +1,4 @@
-package com.shubhaminflow.mvvmtodo.ui
+package com.codinginflow.mvvmtodo.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

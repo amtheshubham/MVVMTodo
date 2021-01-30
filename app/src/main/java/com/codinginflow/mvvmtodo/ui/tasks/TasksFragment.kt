@@ -1,4 +1,4 @@
-package com.shubhaminflow.mvvmtodo.ui.tasks
+package com.codinginflow.mvvmtodo.ui.tasks
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codinginflow.mvvmtodo.R
-import com.shubhaminflow.mvvmtodo.data.SortOrder
+import com.codinginflow.mvvmtodo.data.SortOrder
 import com.codinginflow.mvvmtodo.databinding.FragmentTasksBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
