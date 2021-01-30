@@ -1,4 +1,4 @@
-package com.codinginflow.mvvmtodo.data
+package com.shubhaminflow.mvvmtodo.data
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -55,7 +55,7 @@ class PreferencesManager @Inject constructor(@ApplicationContext context: Contex
 
     }.map { preferences->
 
-        val sortorder=SortOrder.valueOf(preferences[SORTORDER]?: SortOrder.BY_DATE.name)
+        val sortorder= SortOrder.valueOf(preferences[SORTORDER]?: SortOrder.BY_DATE.name)
         val hidecompleted=preferences[HIDECOMPLETED]?:false
 
         FilterPreferences(sortorder, hidecompleted)      //This is like returning an object from flow

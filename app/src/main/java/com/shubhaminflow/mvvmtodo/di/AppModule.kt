@@ -1,10 +1,10 @@
-package com.codinginflow.mvvmtodo.di
+package com.shubhaminflow.mvvmtodo.di
 
 import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.codinginflow.mvvmtodo.data.Task
-import com.codinginflow.mvvmtodo.data.TaskDatabase
+import com.shubhaminflow.mvvmtodo.data.Task
+import com.shubhaminflow.mvvmtodo.data.TaskDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,13 +24,13 @@ object AppModule {
     fun provideDatabase(
         app:Application,
     callback: TaskDatabase.Callback
-    )= Room.databaseBuilder(app,TaskDatabase::class.java,"task_database")
+    )= Room.databaseBuilder(app, TaskDatabase::class.java,"task_database")
         .fallbackToDestructiveMigration()
         .addCallback(callback)
         .build()
 
     @Provides
-    fun provideTaskDao(db:TaskDatabase)=db.taskDao()
+    fun provideTaskDao(db: TaskDatabase)=db.taskDao()
 
     @Provides
     @Singleton

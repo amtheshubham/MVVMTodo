@@ -1,4 +1,4 @@
-package com.codinginflow.mvvmtodo
+package com.shubhaminflow.mvvmtodo
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
