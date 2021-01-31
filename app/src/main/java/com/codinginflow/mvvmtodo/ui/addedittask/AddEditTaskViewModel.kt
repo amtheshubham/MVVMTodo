@@ -19,13 +19,13 @@ class AddEditTaskViewModel(
    /* Also as we did in saved preferences, when we take the input from the user, we add it to savedinstance
    then we pass it to fragment*/
 
-    var taskName= state.get<Task>("taskName")?:task?.name ?:""
+    var taskName= state.get<String>("taskName")?:task?.name ?:""
     set(value) {
         field=value                        // Assigning taskName the entered value and also saving it to savedInstance
         state.set("taskName",value)
     }
 
-    var taskImportance= state.get<Task>("important")?:task?.important ?:false
+    var taskImportance= state.get<Boolean>("important")?:task?.important ?:false
         set(value) {
             field=value                        // Assigning taskName the entered value and also saving it to savedInstance
             state.set("taskImportance",value)
