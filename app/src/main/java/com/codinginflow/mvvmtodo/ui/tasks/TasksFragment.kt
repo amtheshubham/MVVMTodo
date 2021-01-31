@@ -37,6 +37,10 @@ class TasksFragment() : Fragment(R.layout.fragment_tasks) {
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
             }
+
+            fabAddTask.setOnClickListener {
+                viewModel.onAddNewTaskClick()
+            }
         }
 
         viewModel.tasks.observe(viewLifecycleOwner) {

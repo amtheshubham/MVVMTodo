@@ -6,11 +6,10 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.codinginflow.mvvmtodo.data.PreferencesManager
 import com.codinginflow.mvvmtodo.data.SortOrder
+import com.codinginflow.mvvmtodo.data.Task
 import com.codinginflow.mvvmtodo.data.TaskDao
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class TasksViewModel @ViewModelInject constructor (
@@ -18,13 +17,23 @@ class TasksViewModel @ViewModelInject constructor (
     private val preferencesManager: PreferencesManager
 ): ViewModel() {
 
-    val searchQuery= MutableStateFlow("")
-    val datastoreflow=preferencesManager.dataStoreFlow             //Taking the flow of DataStore
+    val tasksEventChannel = Channel<TasksEvent>()
+    val tasksEvent=tasksEventChannel.receiveAsFlow()
 
-    private val tasksFlow = combine(searchQuery,datastoreflow,{searchQuery,datastoreflow-> Pair(searchQuery,datastoreflow)})
+    val searchQuery= MutableStateFlow("")
+    val datastoreflow=preferencesManager.dataStoreFlow //Taking the flow of DataStore
+
+
+
+    private val tasksFlow = combine(searchQuery,datastoreflow,
+        {searchQuery,datastoreflow-> Pair(searchQuery,datastoreflow)})
         .flatMapLatest { taskDao.getTasks(it.first,it.second.sortOrder,it.second.hideCompleted) }
 
     // flatmaplatest is the collector and the combine method is actually producing/returning a Flow
+
+    val tasks = tasksFlow.asLiveData()
+
+
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
         preferencesManager.updateSortorder(sortOrder)
@@ -34,6 +43,19 @@ class TasksViewModel @ViewModelInject constructor (
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    val tasks = tasksFlow.asLiveData()
+    fun onAddNewTaskClick()=viewModelScope.launch {                  //Fragment will call this method.Take and send via channel
+        tasksEventChannel.send(TasksEvent.NavigateToAddTaskScreen)
+    }
+
+    fun onTaskSelected(task: Task)=viewModelScope.launch {          //Fragment will call this method.Take and send via channel
+        tasksEventChannel.send(TasksEvent.NavigateToAddEditTaskScreen(task))
+    }
+
+
+    sealed class TasksEvent{
+        data class NavigateToAddEditTaskScreen(val task: Task):TasksEvent()
+        object NavigateToAddTaskScreen: TasksEvent()
+    }
+
 
 }
